@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import CartContext from "../store/cart-context";
 
 const Product = (props) => {
   const { product } = props;
-  const a = {
-    title: "Colors",
+  const cartCtx = useContext(CartContext);
+  const addCartHandler = () => {
+    console.log(cartCtx.cartItem);
+    const cartItem = {
+      title: product.title,
 
-    price: 100,
+      price: product.price,
 
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
+      imageUrl: product.imageUrl,
+
+      quantity: 4,
+    };
+    cartCtx.onAddItem(cartItem);
   };
-  console.log(props);
   return (
-    <div className="flex flex-col justify-center content-center items-center  max-w-72 mx-auto max-h-96">
-      <h3 className="text-lg font-semibold">{product.title}</h3>
+    <div className="flex flex-col justify-center content-center bg-gray-300 rounded-xl border border-slate-400 p-3 items-center  max-w-72 mx-auto max-h-96">
+      <h3 className="text-xl py-1 font-semibold">{product.title}</h3>
 
-      <div className=" bg-gray-300 overflow-hidden">
+      <div className=" bg-gray-300  overflow-hidden">
         <img
           src={product.imageUrl}
           alt="img"
@@ -23,10 +30,13 @@ const Product = (props) => {
         />
       </div>
 
-      <div className="w-[100%] flex justify-around my-2">
-        <div>${product.price}</div>
+      <div className="w-[100%] py-1 flex justify-around my-2 text-lg">
+        <div className="font-bold ">${product.price}</div>
         <div className="hover:scale-105 duration-500 transition-transform">
-          <button className="text-lg bg-blue-300 px-2 rounded-lg hover:bg-blue-400 duration-500 transition-transform">
+          <button
+            onClick={addCartHandler}
+            className="text-lg bg-blue-300 px-2 rounded-lg hover:bg-blue-400 duration-500 transition-transform"
+          >
             Add to Cart
           </button>
         </div>

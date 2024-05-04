@@ -1,40 +1,39 @@
-import React from "react";
+import React, { useContext } from "react";
 import Model from "../UI/Model";
-const cartElements = [
-  {
-    title: "Colors",
+import CartContext from "../store/cart-context";
 
-    price: 100,
-
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
-
-    quantity: 2,
-  },
-
-  {
-    title: "Black and white Colors",
-
-    price: 50,
-
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
-
-    quantity: 3,
-  },
-
-  {
-    title: "Yellow and Black Colors",
-
-    price: 70,
-
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
-
-    quantity: 1,
-  },
-];
 const CartData = () => {
+  const cartCtx = useContext(CartContext);
+
+  const totalItems = cartCtx.cartItem.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+  const onClose = () => {
+    cartCtx.onVisible();
+  };
+
+  if (totalItems === 0) {
+    return (
+      <Model onClose={onClose}>
+        <div className="p-10 text-center text-2xl font-semibold text-red-500">
+          Cart Is Empty Please add Items!!!
+        </div>
+        <button
+          onClick={onClose}
+          className="bg-red-600 absolute top-4 right-4 px-2 font-bold text-white hover:scale-110 duration-500 transition-transform"
+        >
+          X
+        </button>
+      </Model>
+    );
+  }
   return (
-    <Model className="max-w-[300px] p-4">
-      <button className="bg-red-600 absolute top-4 right-4 px-2 font-bold text-white hover:scale-110 duration-500 transition-transform">
+    <Model className="max-w-[300px] p-4" onClose={onClose}>
+      <button
+        onClick={onClose}
+        className="bg-red-600 absolute top-4 right-4 px-2 font-bold text-white hover:scale-110 duration-500 transition-transform"
+      >
         X
       </button>
       <h1 className="font-metal-mania text-2xl mb-3  text-center">Cart</h1>
@@ -50,8 +49,9 @@ const CartData = () => {
           <div>Quantity</div>
         </div>
       </div>
-      <div>
-        {cartElements.map((cart) => {
+      <div className="overflow-auto max-h-80">
+        {cartCtx.cartItem.map((cart) => {
+          console.log(cart);
           return (
             <div className="grid grid-cols-12 justify-center   mx-2 my-4">
               <div className=" flex justify-start gap-2 items-center  border-b-2 col-span-5 py-1 border-black mx-2">
