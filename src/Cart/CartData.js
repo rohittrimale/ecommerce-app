@@ -54,7 +54,7 @@ const CartData = () => {
           console.log(cart);
           return (
             <div className="grid grid-cols-12 justify-center   mx-2 my-4">
-              <div className=" flex justify-start gap-2 items-center  border-b-2 col-span-5 py-1 border-black mx-2">
+              <div className=" flex flex-col-reverse md:flex-row justify-start gap-2 items-center  border-b-2 col-span-5 py-1 border-black md:mx-2 text-lg font-semibold">
                 <img src={cart.imageUrl} alt="img" height={100} width={100} />
                 <div>{cart.title}</div>
               </div>
