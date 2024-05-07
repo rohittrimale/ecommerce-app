@@ -7,61 +7,43 @@ import Baner from "./UI/Baner";
 import React, { useContext } from "react";
 import CartContext from "./store/cart-context";
 import About from "./Header/About";
-import { createBrowserRouter } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  createBrowserRouter,
+} from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
 import Home from "./Home/Home";
 import Footer from "./footer/Footer";
 import ContactUsPage from "./Header/ContactUsPage";
-
-const DefaultLayout = ({ children }) => (
-  <>
-    <Navbar />
-    <Baner />
-    {children}
-    <Footer />
-  </>
-);
-const MemoizedDefaultLayout = React.memo(DefaultLayout);
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <MemoizedDefaultLayout>
-        <Products />
-      </MemoizedDefaultLayout>
-    ),
-  },
-  {
-    path: "/about",
-    element: (
-      <DefaultLayout>
-        <About />
-      </DefaultLayout>
-    ),
-  },
-  {
-    path: "/home",
-    element: (
-      <DefaultLayout>
-        <Home />
-      </DefaultLayout>
-    ),
-  },
-  {
-    path: "/contactus",
-    element: (
-      <DefaultLayout>
-        <ContactUsPage />
-      </DefaultLayout>
-    ),
-  },
-]);
+import ProductDetails from "./Product/ProductDetails";
 
 function App() {
   const cartCtx = useContext(CartContext);
 
-  return <RouterProvider router={router}></RouterProvider>;
+  return (
+    <BrowserRouter>
+      <div>
+        <header>
+          <Navbar />
+          <Baner />
+        </header>
+        <main>
+          <Routes>
+            <Route path="/" element={<Products />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/product/:productId" element={<ProductDetails />} />
+            <Route path="/contactus" element={<ContactUsPage />} />
+          </Routes>
+        </main>
+        <footer>
+          <Footer />
+        </footer>
+      </div>
+    </BrowserRouter>
+  );
 }
 
 export default App;

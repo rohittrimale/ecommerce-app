@@ -35,7 +35,7 @@ const ContactForm = () => {
   return (
     <form
       onSubmit={submitContactUsHandler}
-      className="flex flex-col items-center content-box py-3 gap-2"
+      className="flex flex-col items-center content-box p-8 py-10 gap-2"
     >
       <div className="flex flex-col">
         <label htmlFor="name">Name:</label>
@@ -66,7 +66,7 @@ const ContactForm = () => {
 
       <button
         type="submit"
-        className="text-lg bg-black text-white px-3 rounded-lg mt-2"
+        className="text-lg mt-4 bg-black text-white px-3 rounded-lg"
       >
         Contact Us
       </button>
