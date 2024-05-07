@@ -4,27 +4,32 @@ import Products from "./Product/Products";
 import CartData from "./Cart/CartData";
 import Navbar from "./Header/Navbar";
 import Baner from "./UI/Baner";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import CartContext from "./store/cart-context";
 import About from "./Header/About";
 import { createBrowserRouter } from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
+import Home from "./Home/Home";
+import Footer from "./footer/Footer";
+import ContactUsPage from "./Header/ContactUsPage";
 
 const DefaultLayout = ({ children }) => (
   <>
     <Navbar />
     <Baner />
     {children}
+    <Footer />
   </>
 );
+const MemoizedDefaultLayout = React.memo(DefaultLayout);
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <DefaultLayout>
+      <MemoizedDefaultLayout>
         <Products />
-      </DefaultLayout>
+      </MemoizedDefaultLayout>
     ),
   },
   {
@@ -32,6 +37,22 @@ const router = createBrowserRouter([
     element: (
       <DefaultLayout>
         <About />
+      </DefaultLayout>
+    ),
+  },
+  {
+    path: "/home",
+    element: (
+      <DefaultLayout>
+        <Home />
+      </DefaultLayout>
+    ),
+  },
+  {
+    path: "/contactus",
+    element: (
+      <DefaultLayout>
+        <ContactUsPage />
       </DefaultLayout>
     ),
   },

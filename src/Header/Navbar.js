@@ -21,12 +21,17 @@ const Navbar = () => {
     <div className="flex bg-slate-800 text-white p-2 justify-between">
       <div></div>
       <div className=" flex gap-8 font-serif text-xl md:text-2xl">
-        <NavbarButton>Home</NavbarButton>
+        <NavbarButton>
+          <NavLink to="/home">Home </NavLink>
+        </NavbarButton>
         <NavbarButton>
           <NavLink to="/">Store </NavLink>
         </NavbarButton>
         <NavbarButton>
           <NavLink to="/about">About </NavLink>
+        </NavbarButton>
+        <NavbarButton>
+          <NavLink to="/contactus">Contact Us </NavLink>
         </NavbarButton>
       </div>
       <div className="mr-1 md:mr-7" onClick={cartHandler}>
