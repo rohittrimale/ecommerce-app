@@ -9,8 +9,18 @@ const CartData = () => {
     (total, item) => total + item.quantity,
     0
   );
+
+  const totalPrice = cartCtx.cartItem.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
   const onClose = () => {
     cartCtx.onVisible();
+  };
+
+  const removeItemHandler = (id) => {
+    cartCtx.onRemoveItem(id);
   };
 
   if (totalItems === 0) {
@@ -55,7 +65,13 @@ const CartData = () => {
           return (
             <div className="grid grid-cols-12 justify-center   mx-2 my-4">
               <div className=" flex flex-col-reverse md:flex-row justify-start gap-2 items-center  border-b-2 col-span-5 py-1 border-black md:mx-2 text-lg font-semibold">
-                <img src={cart.imageUrl} alt="img" height={100} width={100} />
+                <img
+                  src={cart.imageUrl}
+                  className="w-24 h-24"
+                  alt="img"
+                  height={100}
+                  width={100}
+                />
                 <div>{cart.title}</div>
               </div>
               <div className="border-b-2 col-span-2 text-xl  text-center border-black mx-2">
@@ -69,13 +85,20 @@ const CartData = () => {
                   />
                 </div>
                 <div>
-                  <button className="bg-red-600 px-2 rounded-lg">Delete</button>
+                  <button
+                    onClick={() => removeItemHandler(cart.id)}
+                    className="bg-red-600 px-2 rounded-lg"
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             </div>
           );
         })}
       </div>
+
+      <div className="text-xl font-bold ml-2">Total Price : ${totalPrice}</div>
     </Model>
   );
 };

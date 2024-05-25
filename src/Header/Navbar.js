@@ -2,11 +2,15 @@ import React, { useContext } from "react";
 import NavbarButton from "../Buttons/NavbarButton";
 import CartButton from "../Buttons/CartButton";
 import CartContext from "../store/cart-context";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Navigate, useNavigate } from "react-router-dom";
 import CartData from "../Cart/CartData";
+import { AuthContext } from "../store/auth-context";
 
 const Navbar = () => {
   const cartCtx = useContext(CartContext);
+  const authContext = useContext(AuthContext);
+  const isLoggedIn = authContext.isLoggedIn;
+  const navigate = useNavigate();
   console.log(cartCtx);
   const totalItems = cartCtx.cartItem.reduce(
     (total, item) => total + item.quantity,
@@ -15,6 +19,11 @@ const Navbar = () => {
 
   const cartHandler = () => {
     cartCtx.onVisible();
+  };
+
+  const logoutHandler = () => {
+    authContext.logout();
+    navigate("/login");
   };
 
   return (
@@ -34,10 +43,31 @@ const Navbar = () => {
           <NavLink to="/contactus">Contact Us </NavLink>
         </NavbarButton>
       </div>
-      <div className="mr-1 md:mr-7" onClick={cartHandler}>
-        <CartButton totalItems={totalItems} />
-      </div>
-      {cartCtx.isCartVisible && <CartData />}
+
+      {
+        <div className="  flex">
+          {isLoggedIn && (
+            <Link
+              onClick={logoutHandler}
+              className="my-auto py-1 border p-1 px-4 text-red-500 text-xl rounded-xl border-emerald-400"
+            >
+              Logout
+            </Link>
+          )}
+          {!isLoggedIn && (
+            <Link
+              to={"/login"}
+              className="my-auto py-1 border p-1 px-4 text-green-500 text-xl rounded-xl border-emerald-400"
+            >
+              Sign In
+            </Link>
+          )}
+          <div className="md:mr-7" onClick={cartHandler}>
+            <CartButton totalItems={totalItems} />
+          </div>
+          {cartCtx.isCartVisible && <CartData />}
+        </div>
+      }
     </div>
   );
 };

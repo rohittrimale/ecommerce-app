@@ -10,23 +10,23 @@ const Product = (props) => {
     console.log(cartCtx.cartItem);
     const cartItem = {
       title: product.title,
-
+      id: product.id,
       price: product.price,
 
-      imageUrl: product.imageUrl,
+      imageUrl: product.thumbnail,
 
-      quantity: 4,
+      quantity: 1,
     };
     cartCtx.onAddItem(cartItem);
   };
   return (
     <Link to={`product/${product.id}`} state={{ product: product }}>
-      <div className="flex flex-col justify-center content-center bg-gray-300 rounded-xl border border-slate-400 p-3 items-center  max-w-72 mx-auto max-h-96">
+      <div className="flex flex-col justify-evenly content-center bg-gray-300 rounded-xl border border-slate-400 p-3 items-center  max-w-72 mx-auto h-96">
         <h3 className="text-xl py-1 font-semibold">{product.title}</h3>
 
         <div className=" bg-gray-300  overflow-hidden">
           <img
-            src={product.imageUrl}
+            src={product.thumbnail}
             alt="img"
             width="400"
             className="hover:scale-125 duration-500 transition-transform"

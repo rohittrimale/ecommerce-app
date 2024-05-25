@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CartContext from "./cart-context";
+import AuthContextProvider from "./auth-context";
 
 const ContextProvider = (props) => {
   const [isCartVisible, setIsCartVisible] = useState(false);
@@ -27,7 +28,12 @@ const ContextProvider = (props) => {
       ]);
     }
   };
-  console.log(cartItems);
+
+  const removeFromCartHandler = (id) => {
+    const updatedCart = cartItems.filter((item) => item.id !== id);
+    setCartItems(updatedCart);
+  };
+
   const onCartVisibleHandler = () => {
     setIsCartVisible((prev) => !prev);
   };
@@ -37,11 +43,12 @@ const ContextProvider = (props) => {
     onVisible: onCartVisibleHandler,
     cartItem: cartItems,
     onAddItem: addToCartHandler,
+    onRemoveItem: removeFromCartHandler,
   };
 
   return (
     <CartContext.Provider value={cartDetails}>
-      {props.children}
+      <AuthContextProvider>{props.children}</AuthContextProvider>
     </CartContext.Provider>
   );
 };

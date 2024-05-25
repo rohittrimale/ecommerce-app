@@ -18,6 +18,7 @@ import Home from "./Home/Home";
 import Footer from "./footer/Footer";
 import ContactUsPage from "./Header/ContactUsPage";
 import ProductDetails from "./Product/ProductDetails";
+import Login from "./AuthForm/Login";
 
 function App() {
   const cartCtx = useContext(CartContext);
@@ -36,6 +37,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/product/:productId" element={<ProductDetails />} />
             <Route path="/contactus" element={<ContactUsPage />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </main>
         <footer>
