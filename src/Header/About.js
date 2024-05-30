@@ -1,4 +1,5 @@
 import React from "react";
+import image from "../assert/icon1.jpg";
 
 const About = () => {
   return (
@@ -9,7 +10,7 @@ const About = () => {
       <div className="p-3  md:block flex flex-col gap-6">
         <div className="float-left flex flex-col justify-center items-center	m-4 p-2">
           <img
-            src="https://media.licdn.com/dms/image/C5603AQE7FzF0epTY6A/profile-displayphoto-shrink_800_800/0/1613904558574?e=2147483647&v=beta&t=-n0Klis6WOC2FyJMBMB9kOe5qbSqHCfSa4-U3U1rzPQ"
+            src={image}
             alt="img"
             className="rounded-full  "
             height={200}

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Product from "./Product";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const productsArr = [
   {
@@ -580,6 +580,15 @@ const productsArr = [
 ];
 
 const Products = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    let isAuth = localStorage.getItem("token");
+    console.log(isAuth);
+    if (isAuth === null) {
+      navigate("/login");
+    }
+  }, []);
+
   return (
     <div className="flex gap-6">
       <div className=" grid grid-cols-1 mx-auto items-center justify-center content-center gap-5 md:grid-cols-2 lg:grid-cols-3">
