@@ -20,42 +20,9 @@ const Login = () => {
       setError("All fields are required.");
       return;
     }
-    let url;
-    if (isLogin) {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDkzN10Vvdn3JGR_tME3ZfwgVvJKp3mLMs";
-    } else {
-      url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDkzN10Vvdn3JGR_tME3ZfwgVvJKp3mLMs`;
-    }
 
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify({
-          email: enteredEmail,
-          password: enteredPassword,
-          returnSecureToken: true,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
-
-      if (res.ok) {
-        navigator("/");
-        authContext.login(data.idToken);
-        return data;
-      } else {
-        let errorMessage = "Authtication failed";
-        if (data && data.error && data.error.message) {
-          errorMessage = data.error.message;
-        }
-        setError(errorMessage);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    await authContext.login({ enteredPassword, enteredEmail });
+    navigator("/");
   };
 
   const submitHandler = (event) => {

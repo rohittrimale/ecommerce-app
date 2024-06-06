@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import NavbarButton from "../Buttons/NavbarButton";
 import CartButton from "../Buttons/CartButton";
 import CartContext from "../store/cart-context";
@@ -9,13 +9,16 @@ import { AuthContext } from "../store/auth-context";
 const Navbar = () => {
   const cartCtx = useContext(CartContext);
   const authContext = useContext(AuthContext);
-  const isLoggedIn = authContext.isLoggedIn;
+  const [isLoggedIn, setIsLoggedIn] = useState(authContext.isLoggedIn);
   const navigate = useNavigate();
-  console.log(cartCtx);
   const totalItems = cartCtx.cartItem.reduce(
     (total, item) => total + item.quantity,
     0
   );
+
+  useEffect(() => {
+    setIsLoggedIn(authContext.isLoggedIn);
+  }, [authContext, isLoggedIn, setIsLoggedIn]);
 
   const cartHandler = () => {
     cartCtx.onVisible();

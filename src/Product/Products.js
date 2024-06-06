@@ -580,14 +580,14 @@ const productsArr = [
 ];
 
 const Products = () => {
+   
   const navigate = useNavigate();
   useEffect(() => {
     let isAuth = localStorage.getItem("token");
-    console.log(isAuth);
     if (isAuth === null) {
       navigate("/login");
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="flex gap-6">
